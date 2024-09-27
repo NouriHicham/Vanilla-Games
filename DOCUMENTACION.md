@@ -108,3 +108,10 @@ En el proceso de desarrollo emplearemos el flujo de trabajo ‘Flujo de rama de 
 ## Y para el despliegue de nuestras aplicaciones
 Desplegaremos el proyecto en **github pages** (en la fase de pruebas) y utilizaremos un servicio como por ejemplo RailWay, Netlify, etc para el despliegue en producción.
 
+# Diagrama de casos de uso
+
+Para tener la información de manera gráfica vamos a utilizar uno de los **diagramas UML** que aprendimos a hacer el curso pasado:
+
+## Diagrama de casos de uso para la versión 1.0
+
+![UML](image.png)
