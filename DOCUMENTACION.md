@@ -115,3 +115,193 @@ Para tener la información de manera gráfica vamos a utilizar uno de los **diag
 ## Diagrama de casos de uso para la versión 1.0
 
 ![UML](image.png)
+
+# Casos de Uso
+
+## 1. Registrar usuario
+**Actores**: Usuario no registrado.
+
+**Precondiciones**: El usuario no ha iniciado sesión.
+
+### Flujo básico:
+
+1. El usuario navega a la página de registro.
+2. El usuario introduce su nombre, apellidos, email y contraseña.
+3. El sistema valida que los campos estén completos y que el email no esté registrado previamente.
+4. El sistema crea un nuevo usuario con los datos proporcionados.
+5. El sistema muestra un mensaje de confirmación y redirige al usuario a la página de inicio.
+
+### Flujos alternativos:
+
+- **3a**. El sistema detecta que el email ya está registrado: muestra un mensaje de error y no crea la cuenta.
+
+---
+
+## 2. Recuperar contraseña
+**Actores**: Usuario registrado.
+
+**Precondiciones**: El usuario no ha iniciado sesión.
+
+### Flujo básico:
+
+1. El usuario navega a la página de registro.
+2. El usuario selecciona la opción 'Recuperar contraseña'.
+3. El sistema valida que el campo 'email' esté completo y que el email esté registrado previamente.
+4. El sistema muestra un mensaje de confirmación de envío del mail para la recuperación de contraseña y redirige al usuario a la página de inicio.
+
+### Flujos alternativos:
+
+- **3a**. El sistema detecta que el email no está registrado: muestra un mensaje de error y no envía el mail.
+
+---
+
+## 3. Iniciar sesión
+**Actores**: Usuario registrado.
+
+**Precondiciones**: El usuario no ha iniciado sesión.
+
+### Flujo básico:
+
+1. El usuario navega a la página de inicio de sesión.
+2. El usuario introduce su email y contraseña.
+3. El sistema valida las credenciales y crea una sesión para el usuario.
+4. El sistema redirige al usuario a la página principal de la aplicación.
+
+### Flujos alternativos:
+
+- **3a**. Las credenciales son incorrectas: el sistema muestra un mensaje de error y no crea la sesión.
+
+---
+
+## 4. Cerrar sesión
+**Actores**: Usuario registrado.
+
+**Precondiciones**: El usuario ha iniciado sesión.
+
+### Flujo básico:
+
+1. El usuario hace clic en el botón de "cerrar sesión".
+2. El sistema cierra la sesión del usuario.
+3. El sistema redirige al usuario a la página de inicio.
+
+---
+
+## 5. Ver/Editar perfil
+**Actores**: Usuario registrado.
+
+**Precondiciones**: El usuario ha iniciado sesión.
+
+### Flujo básico:
+
+1. El usuario navega a la página de edición de perfil.
+2. El usuario edita su nombre, apellidos y contraseña.
+3. El sistema valida los campos y actualiza el perfil del usuario.
+4. El sistema muestra un mensaje de confirmación.
+
+### Flujos alternativos:
+
+- **3a**. El usuario intenta cambiar su email: el sistema valida que el email no esté registrado previamente.
+
+---
+
+## 6. Ver proyectos
+**Actores**: Usuario registrado.
+
+**Precondiciones**: El usuario ha iniciado sesión.
+
+### Flujo básico:
+
+1. El usuario navega a la página de proyectos.
+2. El sistema muestra una lista de proyectos publicados por desarrolladores.
+3. El usuario puede hacer clic en un proyecto para ver más detalles.
+4. El usuario puede mostrar/filtrar los proyectos a partir de un buscador.
+
+---
+
+## 7. Publicar proyecto
+**Actores**: Usuario registrado con perfil de desarrollador.
+
+**Precondiciones**: El usuario ha iniciado sesión y su perfil es de desarrollador.
+
+### Flujo básico:
+
+1. El usuario navega a la página de publicación de proyecto.
+2. El usuario introduce el nombre, descripción, imagen representativa, enlaces de servidor y repositorio, estado y otra información relevante del proyecto.
+3. El sistema valida los campos y crea un nuevo proyecto.
+4. El sistema muestra un mensaje de confirmación y redirige al usuario a la página de proyectos.
+
+### Flujos alternativos:
+
+- **2a**. El desarrollador decide no publicar el proyecto y selecciona la opción de cancelar.
+   El sistema descarta la información ingresada en el formulario.
+   El sistema muestra un mensaje de confirmación al desarrollador.
+
+---
+
+## 8. Editar proyecto
+**Actor principal**: Desarrollador.
+
+**Objetivo**: Editar la información de un proyecto previamente creado.
+
+**Precondiciones**: El usuario debe haber iniciado sesión como desarrollador y tener al menos un proyecto previamente creado.
+
+### Flujo principal:
+
+1. El usuario selecciona la opción de "Editar proyecto".
+2. El sistema muestra la lista de proyectos previamente creados por el usuario.
+3. El usuario selecciona el proyecto que desea editar.
+4. El sistema muestra el formulario de edición del proyecto con la información actual del mismo.
+5. El usuario realiza los cambios necesarios en la información del proyecto y guarda los cambios.
+6. El sistema valida la información ingresada por el usuario y actualiza la información del proyecto en la base de datos.
+7. El sistema muestra una confirmación de que la información del proyecto ha sido actualizada correctamente.
+
+---
+
+## 9. Eliminar proyecto
+**Actor principal**: Desarrollador.
+
+**Objetivo**: Eliminar un proyecto previamente creado.
+
+**Precondiciones**: El usuario debe haber iniciado sesión como desarrollador y tener al menos un proyecto previamente creado.
+
+### Flujo principal:
+
+1. El usuario selecciona la opción de "Eliminar proyecto" del proyecto que desea eliminar.
+2. El sistema muestra una confirmación de que el usuario está seguro de eliminar el proyecto seleccionado.
+3. El usuario confirma que desea eliminar el proyecto.
+4. El sistema elimina el proyecto de la base de datos y muestra una confirmación de que el proyecto ha sido eliminado correctamente.
+5. El sistema actualiza la información de proyectos.
+
+---
+
+## 10. Ver/Editar usuario
+**Actor principal**: Usuario administrador.
+
+**Objetivo**: Editar la información de los usuarios registrados.
+
+**Precondiciones**: El usuario debe haber iniciado sesión en la aplicación y tener rol administrador.
+
+### Flujo principal:
+
+1. El usuario selecciona la opción de "Ver usuarios".
+2. El sistema muestra una tabla con 'inputs' con los datos de los usuarios.
+3. El administrador realiza los cambios necesarios en la información de los usuarios (incluido el rol y el estado) y guarda los cambios.
+4. El sistema valida la información ingresada por el usuario y actualiza la información del usuario en la base de datos.
+5. El sistema muestra una confirmación de que la información del perfil ha sido actualizada correctamente.
+
+---
+
+## 11. Eliminar usuario
+**Actor principal**: Usuario administrador.
+
+**Objetivo**: Eliminar usuario del sistema.
+
+**Precondiciones**: El usuario debe haber iniciado sesión en la aplicación y debe tener rol administrador.
+
+### Flujo principal:
+
+1. El usuario selecciona la opción de "Ver usuarios".
+2. El sistema muestra una tabla con 'inputs' con los datos de los usuarios.
+3. El administrador hace clic sobre el icono de eliminar usuario de la fila correspondiente.
+4. El sistema informa de que se eliminarán todos sus registros.
+5. El sistema muestra una confirmación de que el usuario ha sido borrado correctamente.
