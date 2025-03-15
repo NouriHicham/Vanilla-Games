@@ -1,3 +1,5 @@
+import { Perfil } from '../bd/perfil'
+
 export default {
    template: // html
    `
@@ -9,6 +11,13 @@ export default {
      <img src="imagenes/logo.svg" alt="fpllefia" class="img-fluid" />
    </div>
  </div>
-   `
+   `,
+   script: async () => {
+     console.log('Vista home cargada')
+ 
+     // Probando la clase Pefil
+     const resultado = await Perfil.getAll()
+     console.log(resultado)
+   }
  }
  
