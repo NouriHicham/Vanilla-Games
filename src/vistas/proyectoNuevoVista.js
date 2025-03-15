@@ -1,11 +1,14 @@
+import { Proyecto } from "../bd/proyecto";
+import { User } from "../bd/user";
+
 export default {
-  template: // html
-  `
+  // html
+  template: `
   <div class="container">
   <h1 class="mt-5">Nuevo proyecto</h1>
   <div class="d-flex justify-content-end">
-    <bottom id="botonVolver" class="btn btn-outline-secondary mt-5 bi bi-arrow-bar-left">
-      Volver</bottom>
+    <a id="botonVolver" class="btn btn-outline-secondary mt-5 bi bi-arrow-bar-left">
+      Volver</a>
   </div>
 
   <div class="row mt-2">
@@ -64,7 +67,7 @@ export default {
           id="fecha" 
           type="date" 
           class="form-control" 
-          value="${(new Date()).toISOString().split('T')[0]}" 
+          value="${new Date().toISOString().split("T")[0]}" 
         />
 
         <!-- Enlace al proyecto -->
@@ -90,11 +93,11 @@ export default {
         />
 
         <!-- Submit -->
-        <input
+        <button
           type="submit"
           class="btn btn-success mt-3"
           value="Subir proyecto"
-        />
+        >Subir proyecto</button>
       </form>
     </div>
   </div>
@@ -102,40 +105,53 @@ export default {
   `,
   script: () => {
     // Boton volver atras
-    document.querySelector('#botonVolver').addEventListener('click', () => {
-      window.history.back()
-    })
+    const botonVolver = document.querySelector("#botonVolver");
+    console.log(botonVolver); // Check if this logs null or the element
+    botonVolver.addEventListener("click", () => {
+      window.history.back();
+    });
 
     // Validación bootstrap
     // Capturamos el formulario en una variable
-    const formulario = document.querySelector('#formularioNuevoPRoyecto')
+    const formulario = document.querySelector("#formularioNuevoProyecto");
     // Detectamos su evento submit (enviar)
-    formulario.addEventListener('submit', (event) => {
+    formulario.addEventListener("submit", (event) => {
       // Detenemos el evento enviar (submit)
-      event.preventDefault()
-      event.stopPropagation()
+      event.preventDefault();
+      event.stopPropagation();
       // Comprobamos si el formulario no valida
       if (!formulario.checkValidity()) {
-      // Y añadimos la clase 'was-validate' para que se muestren los mensajes
-        formulario.classList.add('was-validated')
+        // Y añadimos la clase 'was-validate' para que se muestren los mensajes
+        formulario.classList.add("was-validated");
       } else {
-        enviaDatos()
+        enviaDatos();
       }
-    })
+    });
 
     // Función para enviar datos a la base de datos
-    function enviaDatos () {
-      const proyectoEditado = {
-        imagen: document.querySelector('#urlImagen').value,
-        nombre: document.querySelector('#nombreJuego').value,
-        descripcion: document.querySelector('#descripcion').value,
-        fecha: document.querySelector('#fecha').value,
-        estado: document.querySelector('#estado').value,
-        enlace: document.querySelector('#enlace').value,
-        repositorio: document.querySelector('#repositorio').value
+    async function enviaDatos() {
+      try {
+        const user = await User.getUser();
+        const userId = user.id;
+
+        const proyectoEditado = {
+          // Asignación de valores a las propiedades del proyecto
+          imagen: document.querySelector("#urlImagen").value,
+          nombre: document.querySelector("#nombreJuego").value,
+          descripcion: document.querySelector("#descripcion").value,
+          created_at: document.querySelector("#fecha").value,
+          estado: document.querySelector("#estado").value,
+          enlace: document.querySelector("#enlace").value,
+          repositorio: document.querySelector("#repositorio").value,
+          user_id: userId,
+        };
+        const proyectoCreado = await Proyecto.create(proyectoEditado);
+        alert("Proyecto creado con éxito", proyectoCreado.nombre);
+        console.log("Enviando a la base de datos ", proyectoCreado);
+        window.location = "#/proyectos";
+      } catch (error) {
+        alert("Error al crear el proyecto", error);
       }
-      alert('Enviando proyecto a la base de datos')
-      console.log('Enviando a la base de datos ', proyectoEditado)
     }
-  }
-}
+  },
+};

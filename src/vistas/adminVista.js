@@ -1,4 +1,3 @@
-import { proyectos, perfiles } from '../bd/datosPrueba'
 import { ls } from '../componentes/funciones'
 
 export default {

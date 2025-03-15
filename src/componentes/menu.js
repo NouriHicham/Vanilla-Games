@@ -1,9 +1,8 @@
-
-import { ls } from './funciones'
+import { ls } from "./funciones";
 
 const menuRol = {
-  templateAnonimo: // html
-  `
+  // html
+  templateAnonimo: `
   <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
     <li class="nav-item">
       <a class="ms-2 btn btn-success router-link" href="#/login" >
@@ -19,24 +18,32 @@ const menuRol = {
     </li>
   </ul>
   `,
-  templateRegistrado: // html
-  `
+  // html
+  templateRegistrado: `
   <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
-    <li class="nav-item">
-      <a class="nav-link active router-link" aria-current="page" href="#/proyectos">PROYECTOS</a>
+    <li class="nav-item ">
+      <a class="nav-link active router-link " aria-current="page" href="#/proyectos">PROYECTOS</a>
     </li>
     
   </ul>
   `,
-  templateDesarrollador: // html
-  ``,
-  templateAdmin: // html
-  ``
-}
+  // html
+  templateDesarrollador: ``,
+  // html
+  templateAdmin: `
+  <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
+    <li class="nav-item ">
+      <a class="nav-link active router-link " aria-current="page" href="#/proyectos">PROYECTOS</a>
+    </li>
+     <li class="nav-item ">
+      <a class="nav-link active router-link " aria-current="page" href="#/adminVista">ADMIN</a>
+    </li>
+  </ul>`,
+};
 
 const menuUsuario = {
-  templateRegistrado: // html
-  `
+  // html
+  templateRegistrado: `
   <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
     <li class="nav-item dropdown">
       <a
@@ -46,27 +53,63 @@ const menuUsuario = {
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        <img src="images/avatar.svg" alt="" width="25" />
+        <img src="${ls.getUsuario().avatar}" alt="" width="25" />
       </a>
       <ul class="dropdown-menu me-0" style="left: -100px; width: 100px">
-        <li class="text-light text-end p-2 small">
+        <li class="text-light text-end p-2 small emailUserMenu" data-bs-target="emailUserMenu">
           ${ls.getUsuario().email}
         </li>
-        <li class="text-light text-end pe-2 small fst-italic">
+        <li class="text-light text-end pe-2 small fst-italic rolUserMenu">
           ${ls.getUsuario().rol}
         </li>
         <li><hr class="dropdown-divider" /></li>
-        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalEditarPerfil">Mi perfil</a></li>
+        <li>
+        <a 
+          class="dropdown-item" 
+          href="#"
+          data-bs-toggle="modal"
+          data-bs-target="#modalEditarPerfil">Mi perfil</a>
+        </li>
         <li><hr class="dropdown-divider" /></li>
         <li><a class="dropdown-item cerrarSesion" href="#">Cerrar sesión</a></li>
       </ul>
     </li>
   </ul>
   `,
-  templateDesarrollador: // html
-  ``,
-  templateAdmin: // html
-  ``
-}
+  // html
+  templateDesarrollador: ``,
+  // html
+  templateAdmin: `<ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
+    <li class="nav-item dropdown">
+      <a
+        class="nav-link dropdown-toggle"
+        href="#"
+        role="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <img src="${ls.getUsuario().avatar}" alt="" width="50" />
+      </a>
+      <ul class="dropdown-menu me-0" style="left: -100px; width: 100px">
+        <li class="text-light text-end p-2 small emailUserMenu" data-bs-target="emailUserMenu">
+          ${ls.getUsuario().email}
+        </li>
+        <li class="text-light text-end pe-2 small fst-italic rolUserMenu">
+          ${ls.getUsuario().rol}
+        </li>
+        <li><hr class="dropdown-divider" /></li>
+        <li>
+        <a 
+          class="dropdown-item" 
+          href="#"
+          data-bs-toggle="modal"
+          data-bs-target="#modalEditarPerfil">Mi perfil</a>
+        </li>
+        <li><hr class="dropdown-divider" /></li>
+        <li><a class="dropdown-item cerrarSesion" href="#">Cerrar sesión</a></li>
+      </ul>
+    </li>
+  </ul>`,
+};
 
-export { menuRol, menuUsuario }
+export { menuRol, menuUsuario };

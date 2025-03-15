@@ -61,7 +61,7 @@ export class Proyecto {
     }
 
     // Devuelve una nueva instancia de Proyecto
-    return new Proyecto(proyecto);
+    return new Proyecto(proyectos);
   }
 
   // Método estático para obtener proyectos por el ID del usuario propietario
