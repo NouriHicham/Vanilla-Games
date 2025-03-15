@@ -40,20 +40,48 @@ export default {
     </form>
   </div>
 </div>`,
-  script: () => {
-    //logica javascript para el componente
-    //Capturamos el formulario en una variable
-    const formulario = document.querySelector("form");
-    //Detectamos su evento submit (enviar)
-    formulario.addEventListener("submit", (event) => {
-      //Comprobamos si el formulario no valida
-      if (!formulario.checkValidity()) {
-        //Detenemos el evento enviar (submit)
-        event.preventDefault();
-        event.stopPropagation();
+script: () => {
+  console.log('vista registro cargada')
+  // Validación bootstrap
+
+  // Capturamos el formulario en una variable
+  const formulario = document.querySelector('#formularioRegistro')
+  // Detectamos su evento submit (enviar)
+  formulario.addEventListener('submit', async (event) => {
+    // Detenemos el evento enviar (submit)
+    event.preventDefault()
+    event.stopPropagation()
+    // Comprobamos si el formulario no valida
+    if (!formulario.checkValidity()) {
+      // Y añadimos la clase 'was-validate' para que se muestren los mensajes
+      formulario.classList.add('was-validated')
+    } else {
+      try {
+        // Capturamos datos del formulario para el registro
+        const usuario = {
+          email: formulario.email.value,
+          password: formulario.password.value
+        }
+        console.log('Formulario valido. Datos formulario: ', usuario)
+        const user = await User.create(usuario)
+        console.log('user creado', user)
+
+        // Capturamos datos del formulario para el perfil
+        const perfil = {
+          ...usuario,
+          user_id: user.id,
+          nombre: formulario.nombre.value,
+          apellidos: formulario.apellidos.value
+        }
+        // Insertamos perfil en la base de datos
+        Perfil.create(perfil)
+
+        alert('Usuario creado correctamente. Revisa tu email...')
+        window.location = '#/login'
+      } catch (error) {
+        alert('Error al crear usuario', error)
       }
-      //Y añadimos la clase 'was-validate' para que se muestren los mensajes
-      formulario.classList.add("was-validated");
-    });
-  },
+    }
+  })
+}
 };
