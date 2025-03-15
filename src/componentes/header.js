@@ -30,7 +30,7 @@ export const header = {
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      
+
       <!-- Menu común para todos los usuarios -->
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
         <li class="nav-item">
@@ -46,10 +46,10 @@ export const header = {
 
       <!-- Aquí va el Menu rol -->
       <div id="menuRol"></div>
-    
+
       <!-- Aquí va el Menu usuario -->
       <div id="menuUsuario"></div>
-    
+
     </div>
   </div>
 </nav>
@@ -57,11 +57,11 @@ export const header = {
 <div id="modal">
     <!-- Aquí inyectamos el componente editarPerfil -->
   </div>
- 
+
    `,
    script: ()=>{
     // Simulamos el inicio de sesión de un usuario
-    ls.setUsuario({ email: 'chafardera@gmial.com', rol: 'registrado' })
+    // ls.setUsuario({ email: 'chafardera@gmial.com', rol: 'registrado' })
 
      console.log('Header cargado')
      const rolUsuario = ls.getUsuario().rol
@@ -93,7 +93,31 @@ export const header = {
          // menú usuario: No tiene
          break
      }
+
+     // Y actualizamos los datos de menu de usuario si es que se está mostrando
+      try {
+        // email y rol
+        document.querySelector('#emailUserMenu').innerHTML = ls.getUsuario().email
+        document.querySelector('#rolUserMenu').innerHTML = ls.getUsuario().rol
+        // para la imagen de avatar (avatar.png si el campo está vacío)
+        const imagen = ls.getUsuario().avatar === '' ? 'images/avatar.svg' : ls.getUsuario().avatar
+        document.querySelector('#avatarMenu').setAttribute('src', imagen)
+      } catch (error) {
+        console.log('El usuario no está registrado y no tiene menú de usuario');
+      }
+
+      // Cerrar sesión
+      // Capturamos clic sobre el item de cerrar sesión
+      document.querySelector('header').addEventListener('click', (e) => {
+        if (e.target.classList.contains('cerrarSesion')) {
+          e.preventDefault()
+          // Borramos el localstorage
+          ls.setUsuario('')
+          // Cargamos la pagina home
+          window.location = '#/home'
+          header.script()
+        }
+      })
  }
 }
- 
- 
+
