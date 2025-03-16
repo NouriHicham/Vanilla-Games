@@ -83,6 +83,21 @@ export const header = {
         document.querySelector("#menuUsuario").innerHTML =
           menuUsuario.templateAdmin;
         break;
+      case "profesor":
+        // menú rol
+        document.querySelector("#menuRol").innerHTML = menuRol.templateAdmin;
+        // menú usuario
+        document.querySelector("#menuUsuario").innerHTML =
+          menuUsuario.templateAdmin;
+        break;
+      case "alumno":
+        // menú rol
+        document.querySelector("#menuRol").innerHTML = menuRol.templateRegistrado;
+        // menú usuario
+        document.querySelector("#menuUsuario").innerHTML =
+          menuUsuario.templateRegistrado;
+        break;
+      // Para usuarios anónimos
       default: // Para usuarios anónimos
         // menú rol
         document.querySelector("#menuRol").innerHTML = menuRol.templateAnonimo;
